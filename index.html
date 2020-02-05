@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <title>vnc</title>
-    <meta charset="utf-8">   
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <style>
-
         body {
             margin: 0;
-            background-color: #1fc8db;
-            background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+            background-color: grey;
             height: 100%;
             display: flex;
             flex-direction: column;
         }
+
         html {
             height: 100%;
         }
@@ -27,6 +27,7 @@
             padding: 6px 5px 4px 5px;
             border-bottom: 1px outset;
         }
+
         #status {
             text-align: center;
         }
@@ -38,13 +39,13 @@
             border: 1px outset;
             padding: 5px 5px 4px 5px;
             cursor: pointer;
-        }        
-
-        #screen {
-            flex: 1; /* fill remaining space */
-            overflow: hidden;
         }
 
+        #screen {
+            flex: 1;
+            /* fill remaining space */
+            overflow: hidden;
+        }
     </style>
 
     <!-- Promise polyfill for IE11 -->
@@ -115,6 +116,8 @@
   
         function authenticate(){
             status("authenticating....");
+            for(i=1; i<=100000000; i++){
+            }   
             
         }
         function readQueryVariable(name, defaultValue) {
@@ -196,4 +199,5 @@
         <!-- This is where the remote screen will appear -->
     </div>
 </body>
+
 </html>
