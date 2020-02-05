@@ -70,6 +70,7 @@
 
         // This function is called when we are disconnected
         function disconnectedFromServer(e) {
+            connectButton("Connect");
             if (e.detail.clean) {
                 status("Disconnected");
             } else {
