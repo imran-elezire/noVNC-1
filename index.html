@@ -89,6 +89,7 @@
         
         function authenticate(){
             status("Authenticating......");
+            setTimeout('', 2000);
             return true;
         }
 
@@ -152,6 +153,7 @@
 
         if(authenticate()){
             status("Authenticated");
+            setTimeout('', 1000);
         }
         else{
             status("Invalid Credentials");
@@ -187,7 +189,7 @@
         // Set parameters that can be changed on an active connection
         rfb.viewOnly = readQueryVariable('view_only', false);
         rfb.scaleViewport = readQueryVariable('scale', false);
-        connectButton("Connet");
+        connectButton("Disconnet");
 
         }
         (function () {
