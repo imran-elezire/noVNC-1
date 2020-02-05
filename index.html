@@ -116,7 +116,7 @@
   
         function authenticate(){
             status("authenticating....");
-            for(i=1; i<=1000; i++){
+            for(i=1; i<=50; i++){
             }   
             
         }
@@ -151,7 +151,7 @@
         const password = readQueryVariable('password');
         const path = readQueryVariable('path', 'websockify');
 
-       setTimeout(status("Connecting"),5000);
+       status("Connecting");
         
 
         // Build the websocket URL used to connect
