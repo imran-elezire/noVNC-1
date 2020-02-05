@@ -141,18 +141,18 @@
                 .onclick = connectButtonFunction;
 
         authenticate();
-        setTimeout(authenticate,5000);
+        
 
         const host = readQueryVariable('host', window.location.hostname);
         let port = readQueryVariable('port', window.location.port);
         const password = readQueryVariable('password');
         const path = readQueryVariable('path', 'websockify');
 
-       status("Connecting");
+       setTimeout(status("Connecting"),5000);
         
 
         // Build the websocket URL used to connect
-        let url;
+        let url;  
         if (window.location.protocol === "https:") {
             url = 'wss';
         } else {
