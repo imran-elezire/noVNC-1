@@ -31,7 +31,12 @@
         }
 
         #connectButton {
-            text-align: center;
+            position: fixed;
+            top: 0px;
+            right: 0px;
+            border: 1px outset;
+            padding: 5px 5px 4px 5px;
+            cursor: pointer;
         }        
 
         #screen {
@@ -143,9 +148,10 @@
         }
 
         function init(){
-            alert("Page is loaded");
-            // Read parameters specified in the URL query string
-        // By default, use the host and port of server that served this file
+
+            document.getElementById('connectButton')
+                .onclick = connectButtonFunction;
+
         const host = readQueryVariable('host', window.location.hostname);
         let port = readQueryVariable('port', window.location.port);
         const password = readQueryVariable('password');
@@ -207,7 +213,7 @@
 <body>
     <div id="top_bar">
         <div id="status">Loading</div>
-        <div id="connectButton" onclick="connectButtonFunction()">Loading</div>
+        <div id="connectButton">Loading</div>
     </div>
     <div id="screen">
         <!-- This is where the remote screen will appear -->
