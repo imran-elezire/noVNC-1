@@ -10,7 +10,8 @@
 
         body {
             margin: 0;
-            background-color: whitesmoke;
+            background-color: #1fc8db;
+            background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -86,18 +87,8 @@
         // a desktop name from the server
         function updateDesktopName(e) {
             desktopName = e.detail.name;
-        }
-
-        // Since most operating systems will catch Ctrl+Alt+Del
-        // before they get a chance to be intercepted by the browser,
-        // we provide a way to emulate this key sequence.
-        
-        function authenticate(){
-            
-            return true;
-        }
-
-        // Show a status text in the top bar
+        }        
+ 
         function status(text) {
             document.getElementById('status').textContent = text;
         }
@@ -121,16 +112,14 @@
                 alert("Loading please wait.....");
             }
         }
+        function authenticate(){
+            status("Authenticating.....");
 
-        // This function extracts the value of one variable from the
-        // query string. If the variable isn't defined in the URL
-        // it returns the default value instead.
+        }
+
+        
         function readQueryVariable(name, defaultValue) {
-            // A URL with a query parameter can look like this:
-            // https://www.example.com?myqueryparam=myvalue
-            //
-            // Note that we use location.href instead of location.search
-            // because Firefox < 53 has a bug w.r.t location.search
+           
             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
                   match = document.location.href.match(re);
 
@@ -157,19 +146,7 @@
         const password = readQueryVariable('password');
         const path = readQueryVariable('path', 'websockify');
 
-        status("Authenticating......");
-        setTimeout('', 2000);
-
-        var x = authenticate();
-
-        if(x===true){
-            status("Authenticated");
-            setTimeout('', 1000);
-        }
-        else{
-            status("Invalid Credentials");
-        }
-                
+        setTimeout(authenticate, 2000);               
 
 
         status("Connecting");
