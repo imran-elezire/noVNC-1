@@ -116,9 +116,10 @@
   
         function authenticate(){
             status("authenticating....");
-            while (i < 10) {}            
+            var i = 0;
+            while (i < 100) {}            
         }
-        
+
         function readQueryVariable(name, defaultValue) {
            
             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
