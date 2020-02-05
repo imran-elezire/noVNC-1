@@ -146,10 +146,10 @@
         const password = readQueryVariable('password');
         const path = readQueryVariable('path', 'websockify');
 
-        setTimeout(authenticate, 2000);               
+        authenticate();           
 
-
-        status("Connecting");
+        setTimeout(status("Connecting"), 2000); 
+        
 
         // Build the websocket URL used to connect
         let url;
