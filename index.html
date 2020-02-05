@@ -112,11 +112,7 @@
                 alert("Loading please wait.....");
             }
         }
-        function authenticate(){
-            status("Authenticating.....");
-
-        }
-
+  
         
         function readQueryVariable(name, defaultValue) {
            
@@ -140,14 +136,14 @@
 
             document.getElementById('connectButton')
                 .onclick = connectButtonFunction;
+                status("Authenticating.....");
 
         const host = readQueryVariable('host', window.location.hostname);
         let port = readQueryVariable('port', window.location.port);
         const password = readQueryVariable('password');
         const path = readQueryVariable('path', 'websockify');
 
-        authenticate();           
-
+       
         setTimeout(status("Connecting"), 2000); 
         
 
