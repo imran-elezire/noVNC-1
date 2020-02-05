@@ -2,18 +2,31 @@
 <html lang="en">
 <head>
 
-    <title>vnc</title>
+    <!--
+    noVNC example: lightweight example using minimal UI and features
+
+    This is a self-contained file which doesn't import WebUtil or external CSS.
+
+    Copyright (C) 2019 The noVNC Authors
+    noVNC is licensed under the MPL 2.0 (see LICENSE.txt)
+    This file is licensed under the 2-Clause BSD license (see LICENSE.txt).
+
+    Connect parameters are provided in query string:
+        http://example.com/?host=HOST&port=PORT&scale=true
+    -->
+    <title>noVNC</title>
 
     <meta charset="utf-8">
 
- 
+    <!-- Always force latest IE rendering engine (even in intranet) &
+                Chrome Frame. Remove this if you use the .htaccess -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <style>
 
         body {
             margin: 0;
-            background-color: whitesmoke;
+            background-color: dimgrey;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -23,7 +36,7 @@
         }
 
         #top_bar {
-            background-color: brown;
+            background-color: #6e84a3;
             color: white;
             font: bold 12px Helvetica;
             padding: 6px 5px 4px 5px;
@@ -31,6 +44,14 @@
         }
         #status {
             text-align: center;
+        }
+        #sendCtrlAltDelButton {
+            position: fixed;
+            top: 0px;
+            right: 0px;
+            border: 1px outset;
+            padding: 5px 5px 4px 5px;
+            cursor: pointer;
         }
 
         #screen {
@@ -41,10 +62,10 @@
     </style>
 
     <!-- Promise polyfill for IE11 -->
-    <script src="scripts/promise.js"></script>
+    <script src="vendor/promise.js"></script>
 
     <!-- ES2015/ES6 modules polyfill -->
-    <script nomodule src="scripts/browser-es-module-loader.js"></script>
+    <script nomodule src="vendor/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
 
     <!-- actual script modules -->
     <script type="module" crossorigin="anonymous">
@@ -85,7 +106,10 @@
         // Since most operating systems will catch Ctrl+Alt+Del
         // before they get a chance to be intercepted by the browser,
         // we provide a way to emulate this key sequence.
-     
+        function sendCtrlAltDel() {
+            rfb.sendCtrlAltDel();
+            return false;
+        }
 
         // Show a status text in the top bar
         function status(text) {
@@ -112,7 +136,8 @@
             return defaultValue;
         }
 
-        
+        document.getElementById('sendCtrlAltDelButton')
+            .onclick = sendCtrlAltDel;
 
         // Read parameters specified in the URL query string
         // By default, use the host and port of server that served this file
@@ -159,6 +184,7 @@
 <body>
     <div id="top_bar">
         <div id="status">Loading</div>
+        <div id="sendCtrlAltDelButton">Send CtrlAltDel</div>
     </div>
     <div id="screen">
         <!-- This is where the remote screen will appear -->
