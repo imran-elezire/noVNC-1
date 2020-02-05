@@ -2,31 +2,15 @@
 <html lang="en">
 <head>
 
-    <!--
-    noVNC example: lightweight example using minimal UI and features
-
-    This is a self-contained file which doesn't import WebUtil or external CSS.
-
-    Copyright (C) 2019 The noVNC Authors
-    noVNC is licensed under the MPL 2.0 (see LICENSE.txt)
-    This file is licensed under the 2-Clause BSD license (see LICENSE.txt).
-
-    Connect parameters are provided in query string:
-        http://example.com/?host=HOST&port=PORT&scale=true
-    -->
-    <title>noVNC</title>
-
-    <meta charset="utf-8">
-
-    <!-- Always force latest IE rendering engine (even in intranet) &
-                Chrome Frame. Remove this if you use the .htaccess -->
+    <title>vnc</title>
+    <meta charset="utf-8">   
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <style>
 
         body {
             margin: 0;
-            background-color: dimgrey;
+            background-color: whitesmoke;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -45,7 +29,10 @@
         #status {
             text-align: center;
         }
-        
+
+        #connectButton {
+            text-align: center;
+        }        
 
         #screen {
             flex: 1; /* fill remaining space */
@@ -99,11 +86,34 @@
         // Since most operating systems will catch Ctrl+Alt+Del
         // before they get a chance to be intercepted by the browser,
         // we provide a way to emulate this key sequence.
-     
+        
+        function authenticate(){
+            status("Authenticating......");
+            return true;
+        }
 
         // Show a status text in the top bar
         function status(text) {
             document.getElementById('status').textContent = text;
+        }
+
+        function connectButton(text) {
+            document.getElementById('connectButton').textContent = text;
+        }
+
+        function connectButtonFunction() {
+            if(document.getElementById('connectButton').textContent==="Disconnet"){
+                init();
+                connectButton("Connet");
+            }
+            else if(document.getElementById('connectButton').textContent==="Connet"){
+                disconnect();
+                connectButton("Disconnet");
+
+            }
+            else{                
+                prompt("Loading please wait.....");
+            }
         }
 
         // This function extracts the value of one variable from the
@@ -126,18 +136,27 @@
             return defaultValue;
         }
 
-       
+        function disconnect() {
+            rfb.disconnect();       
 
-        // Read parameters specified in the URL query string
+        }
+
+        function init(){
+            // Read parameters specified in the URL query string
         // By default, use the host and port of server that served this file
         const host = readQueryVariable('host', window.location.hostname);
         let port = readQueryVariable('port', window.location.port);
         const password = readQueryVariable('password');
         const path = readQueryVariable('path', 'websockify');
 
-        // | | |         | | |
-        // | | | Connect | | |
-        // v v v         v v v
+        if(authenticate()){
+            status("Authenticated");
+        }
+        else{
+            status("Invalid Credentials");
+        }
+                
+
 
         status("Connecting");
 
@@ -167,12 +186,17 @@
         // Set parameters that can be changed on an active connection
         rfb.viewOnly = readQueryVariable('view_only', false);
         rfb.scaleViewport = readQueryVariable('scale', false);
+        connectButton("Connet");
+
+        }        
     </script>
 </head>
 
-<body>
+
+<body onload="init()">
     <div id="top_bar">
         <div id="status">Loading</div>
+        <button id="connectButton" onclick="connectButtonFunction()" type="button">Loading</button>
     </div>
     <div id="screen">
         <!-- This is where the remote screen will appear -->
