@@ -136,7 +136,7 @@
 
             document.getElementById('connectButton')
                 .onclick = connectButtonFunction;
-                status("Authenticating.....");
+        setTimeout(status("Authenticating....."), 2000); 
 
         const host = readQueryVariable('host', window.location.hostname);
         let port = readQueryVariable('port', window.location.port);
@@ -144,7 +144,7 @@
         const path = readQueryVariable('path', 'websockify');
 
        
-        setTimeout(status("Connecting"), 2000); 
+        status("Connecting");
         
 
         // Build the websocket URL used to connect
