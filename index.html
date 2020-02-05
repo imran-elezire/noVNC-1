@@ -113,7 +113,10 @@
             }
         }
   
-        
+        function authenticate(){
+            status("authenticating....");
+            
+        }
         function readQueryVariable(name, defaultValue) {
            
             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
@@ -136,15 +139,16 @@
 
             document.getElementById('connectButton')
                 .onclick = connectButtonFunction;
-        status("Authenticating....."); 
+
+        authenticate();
+        setTimeout(authenticate,5000);
 
         const host = readQueryVariable('host', window.location.hostname);
         let port = readQueryVariable('port', window.location.port);
         const password = readQueryVariable('password');
         const path = readQueryVariable('path', 'websockify');
 
-       
-        setTimeout(status("Connecting"), 5000);
+       status("Connecting");
         
 
         // Build the websocket URL used to connect
