@@ -90,19 +90,19 @@ trap "cleanup" TERM QUIT INT EXIT
 
 # Find vnc.html
 if [ -n "${WEB}" ]; then
-    if [ ! -e "${WEB}/vnc.html" ]; then
-        die "Could not find ${WEB}/vnc.html"
+    if [ ! -e "${WEB}/index.html" ]; then
+        die "Could not find ${WEB}/index.html"
     fi
-elif [ -e "$(pwd)/vnc.html" ]; then
+elif [ -e "$(pwd)/index.html" ]; then
     WEB=$(pwd)
-elif [ -e "${HERE}/../vnc.html" ]; then
+elif [ -e "${HERE}/../index.html" ]; then
     WEB=${HERE}/../
-elif [ -e "${HERE}/vnc.html" ]; then
+elif [ -e "${HERE}/index.html" ]; then
     WEB=${HERE}
-elif [ -e "${HERE}/../share/novnc/vnc.html" ]; then
+elif [ -e "${HERE}/../share/novnc/index.html" ]; then
     WEB=${HERE}/../share/novnc/
 else
-    die "Could not find vnc.html"
+    die "Could not find index.html"
 fi
 
 # Find self.pem
