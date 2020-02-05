@@ -189,12 +189,15 @@
         rfb.scaleViewport = readQueryVariable('scale', false);
         connectButton("Connet");
 
-        }        
+        }
+        (function () {
+            init();
+        }());        
     </script>
 </head>
 
 
-<body onload="init()">
+<body>
     <div id="top_bar">
         <div id="status">Loading</div>
         <button id="connectButton" onclick="connectButtonFunction()" type="button">Loading</button>
