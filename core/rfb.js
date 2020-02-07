@@ -56,7 +56,7 @@ export default class RFB extends EventTargetMixin {
         //imran - for token passing new options
         this.userCredential = options.userCredential ||{};
         console.log(this.userCredential.tokenId);
-        alert(this.userCredential.tokenId);
+        alert(this.userCredential);
 
         // Internal state
         this._rfb_connection_state = '';
