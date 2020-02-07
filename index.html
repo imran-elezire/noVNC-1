@@ -141,45 +141,50 @@
 
             document.getElementById('connectButton')
                 .onclick = connectButtonFunction;
+            
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const tokenId = urlParams.get('token');
 
-        authenticate();
-        
 
-        const host = readQueryVariable('host', window.location.hostname);
-        let port = readQueryVariable('port', window.location.port);
-        const password = readQueryVariable('password');
-        const path = readQueryVariable('path', 'websockify');
+            authenticate();
+            
 
-       status("Connecting");
-        
+            const host = readQueryVariable('host', window.location.hostname);
+            let port = readQueryVariable('port', window.location.port);
+            const password = readQueryVariable('password');
+            const path = readQueryVariable('path', 'websockify');
 
-        // Build the websocket URL used to connect
-        let url;  
-        if (window.location.protocol === "https:") {
-            url = 'wss';
-        } else {
-            url = 'ws';
-        }
-        url += '://' + host;
-        if(port) {
-            url += ':' + port;
-        }
-        url += '/' + path;
+        status("Connecting");
+            
 
-        // Creating a new RFB object will start a new connection
-        rfb = new RFB(document.getElementById('screen'), url,
-                      { credentials: { password: password } });
+            // Build the websocket URL used to connect
+            let url;  
+            if (window.location.protocol === "https:") {
+                url = 'wss';
+            } else {
+                url = 'ws';
+            }
+            url += '://' + host;
+            if(port) {
+                url += ':' + port;
+            }
+            url += '/' + path;
 
-        // Add listeners to important events from the RFB module
-        rfb.addEventListener("connect",  connectedToServer);
-        rfb.addEventListener("disconnect", disconnectedFromServer);
-        rfb.addEventListener("credentialsrequired", credentialsAreRequired);
-        rfb.addEventListener("desktopname", updateDesktopName);
+            // Creating a new RFB object will start a new connection
+            rfb = new RFB(document.getElementById('screen'), url,
+                        { credentials: { password: password } },{userCredential: {tokenId: tokenId}});
 
-        // Set parameters that can be changed on an active connection
-        rfb.viewOnly = readQueryVariable('view_only', false);
-        rfb.scaleViewport = readQueryVariable('scale', false);
-        connectButton("Disconnet");
+            // Add listeners to important events from the RFB module
+            rfb.addEventListener("connect",  connectedToServer);
+            rfb.addEventListener("disconnect", disconnectedFromServer);
+            rfb.addEventListener("credentialsrequired", credentialsAreRequired);
+            rfb.addEventListener("desktopname", updateDesktopName);
+
+            // Set parameters that can be changed on an active connection
+            rfb.viewOnly = readQueryVariable('view_only', false);
+            rfb.scaleViewport = readQueryVariable('scale', false);
+            connectButton("Disconnet");
 
         }
         (function () {
