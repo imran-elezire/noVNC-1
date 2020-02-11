@@ -179,7 +179,7 @@ export default class Websock {
         this._websocket = null;
     }
 
-    open(uri, protocols, token) {
+    open(uri, protocols) {
         this.init();
 
         this._websocket = new WebSocket(uri,protocols);
