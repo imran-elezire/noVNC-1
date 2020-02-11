@@ -185,7 +185,7 @@ export default class RFB extends EventTargetMixin {
 
         this._sock = new Websock();
         this._sock.on('message', () => {
-            this._sock.send_string(this.userCredential.tokenId);
+            //this._sock.send_string(this.userCredential.tokenId);
             this._handle_message();
         });
         this._sock.on('open', () => {
