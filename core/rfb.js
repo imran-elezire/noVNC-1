@@ -54,8 +54,7 @@ export default class RFB extends EventTargetMixin {
         this._repeaterID = options.repeaterID || '';
         this._wsProtocols = options._wsProtocols || [];
         //imran - for token passing new options
-        this.userCredential = options.userCredential ||{};
-        console.log(this.userCredential.tokenId);
+        
         
         // Internal state
         this._rfb_connection_state = '';
@@ -406,7 +405,7 @@ export default class RFB extends EventTargetMixin {
 
         try {
             // WebSocket.onopen transitions to the RFB init states
-            this._sock.open(this._url, this._wsProtocols, this.userCredential.tokenId);
+            this._sock.open(this._url, this._wsProtocols);
         } catch (e) {
             if (e.name === 'SyntaxError') {
                 this._fail("Invalid host or port (" + e + ")");
