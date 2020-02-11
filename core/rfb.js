@@ -52,7 +52,7 @@ export default class RFB extends EventTargetMixin {
         this._rfb_credentials = options.credentials || {};
         this._shared = 'shared' in options ? !!options.shared : true;
         this._repeaterID = options.repeaterID || '';
-        this._wsProtocols = options.userCredential || [];
+        this._wsProtocols = options._wsProtocols || [];
         //imran - for token passing new options
         this.userCredential = options.userCredential ||{};
         console.log(this.userCredential.tokenId);
