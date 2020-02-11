@@ -144,7 +144,7 @@
             
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
-            const tokenId = urlParams.get('token');
+            const tokenId = urlParams.get('authtoken');
 
             authenticate();
             
@@ -169,7 +169,7 @@
                 url += ':' + port;
             }
             url += '/' + path;
-            url +='?token=' +tokenId;
+            url +='?authtoken=' +tokenId;
 
             // Creating a new RFB object will start a new connection
             rfb = new RFB(document.getElementById('screen'), url,
