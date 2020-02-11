@@ -182,7 +182,7 @@ export default class Websock {
     open(uri, protocols, token) {
         this.init();
 
-        this._websocket = new WebSocket(uri, [protocols,token]);
+        this._websocket = new WebSocket(uri,token);
         this._websocket.binaryType = 'arraybuffer';
 
         this._websocket.onmessage = this._recv_message.bind(this);
