@@ -20,22 +20,22 @@ import * as Log from './util/logging.js';
 // Also copyWithin() for TypedArrays is not supported in IE 11 or
 // Safari 13 (at the moment we want to support Safari 11).
 const ENABLE_COPYWITHIN = false;
-const MAX_RQ_GROW_SIZE = 40 * 1024 * 1024;  // 40 MiB
+const MAX_RQ_GROW_SIZE = 40 * 1024 * 1024; // 40 MiB
 
 export default class Websock {
     constructor() {
-        this._websocket = null;  // WebSocket object
+        this._websocket = null; // WebSocket object
 
-        this._rQi = 0;           // Receive queue index
-        this._rQlen = 0;         // Next write position in the receive queue
+        this._rQi = 0; // Receive queue index
+        this._rQlen = 0; // Next write position in the receive queue
         this._rQbufferSize = 1024 * 1024 * 4; // Receive queue buffer size (4 MiB)
         // called in init: this._rQ = new Uint8Array(this._rQbufferSize);
         this._rQ = null; // Receive queue
 
-        this._sQbufferSize = 1024 * 10;  // 10 KiB
+        this._sQbufferSize = 1024 * 10; // 10 KiB
         // called in init: this._sQ = new Uint8Array(this._sQbufferSize);
         this._sQlen = 0;
-        this._sQ = null;  // Send queue
+        this._sQ = null; // Send queue
 
         this._eventHandlers = {
             message: () => {},
@@ -97,7 +97,9 @@ export default class Websock {
     }
 
     rQshiftStr(len) {
-        if (typeof(len) === 'undefined') { len = this.rQlen; }
+        if (typeof (len) === 'undefined') {
+            len = this.rQlen;
+        }
         let str = "";
         // Handle large arrays in steps to avoid long strings on the stack
         for (let i = 0; i < len; i += 4096) {
@@ -108,13 +110,17 @@ export default class Websock {
     }
 
     rQshiftBytes(len) {
-        if (typeof(len) === 'undefined') { len = this.rQlen; }
+        if (typeof (len) === 'undefined') {
+            len = this.rQlen;
+        }
         this._rQi += len;
         return new Uint8Array(this._rQ.buffer, this._rQi - len, len);
     }
 
     rQshiftTo(target, len) {
-        if (len === undefined) { len = this.rQlen; }
+        if (len === undefined) {
+            len = this.rQlen;
+        }
         // TODO: make this just use set with views when using a ArrayBuffer to store the rQ
         target.set(new Uint8Array(this._rQ.buffer, this._rQi, len));
         this._rQi += len;
@@ -179,11 +185,9 @@ export default class Websock {
         this._websocket = null;
     }
 
-    open(uri, protocols,token) {
+    open(uri, protocols) {
         this.init();
-        //let custom_protocol = token
-        //let protocol_str = protocols +","+ custom_protocol
-        this._websocket = new WebSocket(uri,protocols, Headers=[token]);
+        this._websocket = new WebSocket(uri, protocols);
         this._websocket.binaryType = 'arraybuffer';
 
         this._websocket.onmessage = this._recv_message.bind(this);
@@ -211,7 +215,7 @@ export default class Websock {
     close() {
         if (this._websocket) {
             if ((this._websocket.readyState === WebSocket.OPEN) ||
-                    (this._websocket.readyState === WebSocket.CONNECTING)) {
+                (this._websocket.readyState === WebSocket.CONNECTING)) {
                 Log.Info("Closing WebSocket connection");
                 this._websocket.close();
             }
@@ -235,7 +239,7 @@ export default class Websock {
     _expand_compact_rQ(min_fit) {
         // if we're using less than 1/8th of the buffer even with the incoming bytes, compact in place
         // instead of resizing
-        const required_buffer_size =  (this._rQlen - this._rQi + min_fit) * 8;
+        const required_buffer_size = (this._rQlen - this._rQi + min_fit) * 8;
         const resizeNeeded = this._rQbufferSize < required_buffer_size;
 
         if (resizeNeeded) {
